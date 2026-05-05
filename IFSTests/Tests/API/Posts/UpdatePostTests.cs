@@ -30,7 +30,8 @@ public class UpdatePostTests
     public async Task UpdatePost_UpdatesExistingPost(CancellationToken cancellationToken)
     {
         PostInfoDTO updatedPost = null!;
-        _log.Step("Create sample post for update", () => {
+        _log.Step("Create sample post for update", () =>
+        {
             updatedPost = new PostInfoDTO
             {
                 Id = 1,
@@ -40,43 +41,19 @@ public class UpdatePostTests
             };
         });
         var response = await _postsController.UpdatePost(updatedPost.Id, updatedPost, cancellationToken);
-        _log.Step("Check if response status code is 200", () => {
-            Assert.That(
-                response.StatusCode, 
-                Is.EqualTo(HttpStatusCode.OK), 
-                "Expected PUT /posts/{id} to return 200."
-            );
+        _log.Step("Check if response status code is 200", () =>
+        {
+            response.StatusCode
+                .Should()
+                .Be(HttpStatusCode.OK, "expected PUT /posts/{id} to return 200.");
         });
-        _log.Step("Check if response body is present", () => {
-            Assert.That(
-                response.Body,
-                Is.Not.Null,
-                "Expected response body to be present."
-            );
-        });
-        _log.Step("Check if response body id, userId, title, and body match updated post", () => {
-            Assert.Multiple(() => {
-                Assert.That(
-                    response.Body!.Id,
-                    Is.EqualTo(updatedPost.Id),
-                    "Expected response id to match updated post id."
-                );
-                Assert.That(
-                    response.Body.UserId,
-                    Is.EqualTo(updatedPost.UserId),
-                    "Expected response userId to match submitted value."
-                );
-                Assert.That(
-                    response.Body.Title,
-                    Is.EqualTo(updatedPost.Title),
-                    "Expected response title to match submitted value."
-                );
-                Assert.That(
-                    response.Body.Body,
-                    Is.EqualTo(updatedPost.Body),
-                    "Expected response body to match submitted value."
-                );
-            });
+        _log.Step("Check if response body matches updated post", () =>
+        {
+            response.Body?
+                .Should()
+                .NotBeNull("expected response body to be present.")
+                .And
+                .BeEquivalentTo(updatedPost, "Expected response body to match updated post.");
         });
     }
 }

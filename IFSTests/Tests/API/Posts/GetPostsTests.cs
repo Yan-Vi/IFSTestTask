@@ -30,12 +30,11 @@ public class GetPostsTests
     public async Task GetAllPosts_Returns200Ok(CancellationToken cancellationToken)
     {
         var response = await _postsController.GetAllPosts(cancellationToken);
-        _log.Step("Check if response status code is 200", () => {
-            Assert.That(
-                response.StatusCode,
-                Is.EqualTo(HttpStatusCode.OK),
-                "Expected GET /posts to return 200."
-            );
+        _log.Step("Check if response status code is 200", () =>
+        {
+            response.StatusCode
+                .Should()
+                .Be(HttpStatusCode.OK, "expected GET /posts to return 200.");
         });
     }
 
@@ -45,19 +44,17 @@ public class GetPostsTests
     public async Task GetAllPosts_ReturnsExpectedNumberOfPosts(CancellationToken cancellationToken)
     {
         var response = await _postsController.GetAllPosts(cancellationToken);
-        _log.Step("Check if response status code is 200", () => {
-            Assert.That(
-                response.StatusCode,
-                Is.EqualTo(HttpStatusCode.OK),
-                "Expected GET /posts to return 200."
-            );
+        _log.Step("Check if response status code is 200", () =>
+        {
+            response.StatusCode
+                .Should()
+                .Be(HttpStatusCode.OK, "expected GET /posts to return 200.");
         });
-        _log.Step("Check if response body contains exactly 100 posts", () => {
-            Assert.That(
-                response.Body,
-                Has.Length.EqualTo(100),
-                "Expected JSONPlaceholder to return 100 posts."
-            );
+        _log.Step("Check if response body contains exactly 100 posts", () =>
+        {
+            response.Body
+                .Should()
+                .HaveCount(100, "expected JSONPlaceholder to return 100 posts.");
         });
     }
 
@@ -68,48 +65,33 @@ public class GetPostsTests
     {
         var response = await _postsController.GetAllPosts(cancellationToken);
 
-        _log.Step("Check if response status code is 200", () => {
-            Assert.That(
-                response.StatusCode,
-                Is.EqualTo(HttpStatusCode.OK),
-                "Expected GET /posts to return 200."
-            );
+        _log.Step("Check if response status code is 200", () =>
+        {
+            response.StatusCode
+                .Should()
+                .Be(HttpStatusCode.OK, "expected GET /posts to return 200.");
         });
-        _log.Step("Check if response body contains at least one post", () => {
-            Assert.That(
-                response.Body,
-                Is.Not.Null.And.Not.Empty,
-                "Expected response body to include at least one post."
-            );
+        _log.Step("Check if response body contains at least one post", () =>
+        {
+            response.Body?
+                .Should()
+                .NotBeNullOrEmpty("expected response body to include at least one post.");
         });
         _log.Step("Check if response body contains the required post structure", () =>
         {
-            Assert.Multiple(() =>
+            response.Body!.Should().AllSatisfy(post =>
             {
-                for (var i = 0; i < response.Body!.Length; i++)
-                {
-                    var post = response.Body[i];
-                    Assert.That(
-                        post.Id,
-                        Is.GreaterThan(0),
-                        $"Expected posts[{i}].id to be positive."
-                    );
-                    Assert.That(
-                        post.UserId,
-                        Is.GreaterThan(0),
-                        $"Expected posts[{i}].userId to be positive."
-                    );
-                    Assert.That(
-                        post.Title,
-                        Is.Not.Empty,
-                        $"Expected posts[{i}].title to be non-empty."
-                    );
-                    Assert.That(
-                        post.Body,
-                        Is.Not.Empty,
-                        $"Expected posts[{i}].body to be non-empty."
-                    );
-                }
+                post.Id
+                    .Should()
+                    .BeGreaterThan(0, "Expected id to be positive.");
+                post.UserId.Should()
+                    .BeGreaterThan(0, "Expected userId to be positive.");
+                post.Title
+                    .Should()
+                    .NotBeNullOrEmpty("Expected title to be non-empty.");
+                post.Body
+                    .Should()
+                    .NotBeNullOrEmpty("Expected body to be non-empty.");
             });
         });
     }

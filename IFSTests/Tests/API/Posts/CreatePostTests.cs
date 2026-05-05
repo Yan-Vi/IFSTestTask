@@ -42,11 +42,9 @@ public class CreatePostTests
         var response = await _postsController.CreatePost(newPost, cancellationToken);
         _log.Step("Check if response status code is 201", () =>
         {
-            Assert.That(
-                response.StatusCode,
-                Is.EqualTo(HttpStatusCode.Created),
-                "Expected POST /posts to return 201."
-            );
+            response.StatusCode
+                .Should()
+                .Be(HttpStatusCode.Created, "expected POST /posts to return 201.");
         });
     }
 
@@ -68,34 +66,21 @@ public class CreatePostTests
         var response = await _postsController.CreatePost(newPost, cancellationToken);
         _log.Step("Check if response body has same data as submitted", () =>
         {
-            Assert.Multiple(() =>
+            using (new AssertionScope())
             {
-                Assert.That(
-                    response.StatusCode,
-                    Is.EqualTo(HttpStatusCode.Created),
-                    "Expected POST /posts to return 201."
-                );
-                Assert.That(
-                    response.Body,
-                    Is.Not.Null,
-                    "Expected response body to be present."
-                );
-                Assert.That(
-                    response.Body!.UserId,
-                    Is.EqualTo(newPost.UserId),
-                    "Expected response userId to match submitted value."
-                );
-                Assert.That(
-                    response.Body!.Title,
-                    Is.EqualTo(newPost.Title),
-                    "Expected response title to match submitted value."
-                );
-                Assert.That(
-                    response.Body!.Body,
-                    Is.EqualTo(newPost.Body),
-                    "Expected response body to match submitted value."
-                );
-            });
+                response.StatusCode
+                    .Should()
+                    .Be(HttpStatusCode.Created, "expected POST /posts to return 201.");
+                response.Body?
+                    .Should()
+                    .NotBeNull("Expected response body to be present.")
+                    .And
+                    .BeEquivalentTo(
+                        newPost,
+                        options => options
+                            .Excluding(p => p.Id),
+                        "Expected response body except Id to be equivalent to submitted data.");
+            }
         });
     }
 }
