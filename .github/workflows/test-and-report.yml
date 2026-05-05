@@ -65,6 +65,10 @@ jobs:
 
   deploy-gh-pages:
     needs: test
+    if: >
+      needs.test.result == 'success' &&
+      (github.event_name == 'pull_request' ||
+       (github.event_name == 'push' && github.ref == 'refs/heads/main'))
     runs-on: ubuntu-latest
     concurrency:
       group: gh-pages-deploy
@@ -72,6 +76,8 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v6
+
       - uses: actions/download-artifact@v4
         with:
           name: allure-report-${{ github.run_id }}
