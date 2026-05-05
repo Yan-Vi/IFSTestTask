@@ -4,9 +4,9 @@ REST API automated test framework setup for [JSONPlaceholder](https://jsonplaceh
 
 ## Prerequisites
 
-- **[.NET SDK 9](https://dotnet.microsoft.com/download)** [required] (project targets `net9.0`)
-- **[Node.js + NPM](https://nodejs.org/en/download)** [optional] required only if you generate **Allure 3** reports locally with `npx` (see below). Running `dotnet test` does not need Node.
-- **[Make] [optional] Makefile cli automation tool 
+- **[.NET SDK 9](https://dotnet.microsoft.com/download) [`required`]** (project targets `net9.0`)
+- **[Node.js + NPM](https://nodejs.org/en/download) [`optional`]** required only if you generate **Allure 3** reports locally with `npx` (see below). Running `dotnet test` does not need Node.
+- **[Make](https://en.wikipedia.org/wiki/Make_(software)#Makefile) [`optional`]** Makefile cli automation tool 
 
 ### CLI Setup guide For Windows
 ```bash
