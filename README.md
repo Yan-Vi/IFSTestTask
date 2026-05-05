@@ -29,7 +29,7 @@ using config.json files in `IFSTests/TestConfigurations` folder
 
 To run tests using specific config use environment variable **`IFS_TEST_CONFIG`** with the profile name (filename in `IFSTests/TestConfigurations/` without `.config.json`; e.g. **`default`**, **`debug`**).
 
-Both configs use allure logger - both configs should be able to produce detailed allure reports but only `debug.config` writes steps to console
+Both configs use allure logger - both configs should be able to produce detailed allure reports but only `debug.config` writes steps to console.
 
 Project supports .env files and uses DotNetEnv.
 Create .env file with variables or use commands to select configuration:
