@@ -1,0 +1,13 @@
+{
+  "baseUrl": "https://jsonplaceholder.typicode.com",
+  "loggerType": "ConsoleLogger, AllureLogger",
+  "apiClientConfig": {
+    "restClientConfig": {
+      "restClientType": "HttpRestClient",
+      "requestTimeoutInMs": 10000
+    },
+    "postsControllerConfig": {
+      "relativePath": "posts"
+    }
+  }
+}
