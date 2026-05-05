@@ -88,7 +88,7 @@ for steps formatting in allure reports is responsible `AllureLogger`, so include
 
 ## Continuous integration
 
-[`.github/workflows/test-and-report.yml`](.github/workflows/test-and-report.yml) runs tests on push and pull requests, builds an Allure report, uploads artifacts, and publishes the report to [GitHub Pages](https://yan-vi.github.io/IFSTestTask/) when on `main`.
+[`.github/workflows/test-and-report.yml`](.github/workflows/test-and-report.yml) runs tests on push and pull requests, builds an Allure report, uploads artifacts, and  when on `main` publishes the report to [GitHub Pages](https://yan-vi.github.io/IFSTestTask/).
 
 **GitHub Actions repository variables** 
 Workflow can be configured in continuous integration by manipulating following variables:
