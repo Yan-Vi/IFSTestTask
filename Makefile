@@ -2,7 +2,7 @@
 
 CONFIG ?= Debug
 VERBOSITY ?= normal
-ALLURE_RESULTS := IFSTests/bin/$(CONFIG)/net10.0/allure-results
+ALLURE_RESULTS := IFSTests/bin/$(CONFIG)/net9.0/allure-results
 ALLURE_REPORT := allure-report
 
 test:

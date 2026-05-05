@@ -28,7 +28,7 @@ jobs:
 
       - uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: "10.x"
+          dotnet-version: "9.x"
 
       - uses: actions/setup-node@v6
         with:
@@ -46,7 +46,7 @@ jobs:
         continue-on-error: true
 
       - name: Generate Allure 3 report
-        run: npx -y allure@3.7.0 awesome IFSTests/bin/${{ env.CONFIG }}/net10.0/allure-results --single-file
+        run: npx -y allure@3.7.0 awesome IFSTests/bin/${{ env.CONFIG }}/net9.0/allure-results --single-file
 
       - name: Allure Report
         if: github.event_name == 'pull_request'

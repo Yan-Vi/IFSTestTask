@@ -4,8 +4,26 @@ REST API automated test framework setup for [JSONPlaceholder](https://jsonplaceh
 
 ## Prerequisites
 
-- **[.NET SDK 10](https://dotnet.microsoft.com/download)** (project targets `net10.0`)
-- **[Node.js](https://nodejs.org/en/download)** (LTS recommended)—required only if you generate **Allure 3** reports locally with `npx` (see below). Running `dotnet test` does not need Node.
+- **[.NET SDK 9](https://dotnet.microsoft.com/download)** (project targets `net9.0`)
+- **[Node.js + NPM](https://nodejs.org/en/download)** (LTS recommended)—required only if you generate **Allure 3** reports locally with `npx` (see below). Running `dotnet test` does not need Node.
+- **[Make] Makefile cli automation tool
+
+### Setup For Windows
+```bash
+winget install Microsoft.DotNet.SDK.9
+## next is for make shortcuts and running allure report
+winget install OpenJS.NodeJS.LTS
+winget install ezwinports.make
+```
+then Restart your IDE/Tesminal or Windows for cli tools to become available
+
+### Setup For MacOS
+```bash
+brew install --cask dotnet-sdk@9
+## next is for make shortcuts and running allure report
+brew install node
+brew inbstall make
+```
 
 ## Run tests (command line)
 To run tests use following commands
@@ -52,8 +70,16 @@ when unset, **`default`** is used.
 
 After a test run, results are under `IFSTests/bin/<Configuration>/net10.0/allure-results`.
 
-Following command creates and shows report:
+Following commands create and show report:
+**If on Windows** - allow npx to run, write in powershell:
+```bash
+Set-ExecutionPolicy Bypass -Scope Process
+```
 
+```bash
+npx -y allure@3.7.0 awesome IFSTests/bin/Debug/net10.0/allure-results --single-file
+npx -y allure@3.7.0 open allure-report
+```
 ```bash
 make report
 ```
