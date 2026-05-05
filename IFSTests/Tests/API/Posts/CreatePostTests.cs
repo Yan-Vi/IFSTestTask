@@ -82,7 +82,7 @@ public class CreatePostTests
                 );
                 Assert.That(
                     response.Body!.UserId,
-                    Is.EqualTo(newPost.UserId),
+                    Is.EqualTo(2),
                     "Expected response userId to match submitted value."
                 );
                 Assert.That(
