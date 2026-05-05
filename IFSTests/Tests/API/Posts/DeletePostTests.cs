@@ -31,12 +31,11 @@ public class DeletePostTests
     {
         _log.Step($"Post id to delete is {postId}");
         var response = await _postsController.DeletePost(postId, cancellationToken);
-        _log.Step("Check if response status code is 200", () => {
-            Assert.That(
-                response.StatusCode,
-                Is.EqualTo(HttpStatusCode.OK),
-                "Expected DELETE /posts/{id} to return 200."
-            );
+        _log.Step("Check if response status code is 200", () =>
+        {
+            response.StatusCode
+                .Should()
+                .Be(HttpStatusCode.OK, "expected DELETE /posts/{id} to return 200.");
         });
     }
 }
